@@ -14,17 +14,17 @@ from datasets import Dataset, Audio, Features, Value
 class ParquetFileCreator:
     def __init__(self, config_path="config/config.yaml"):
         # Load configuration from the YAML file using config_loader
-        self.config = load_config(config_path)
+        self.config     = load_config(config_path)
         
         # Set directories from config
-        self.base_dir = self.config['paths']['base_data_directory']
+        self.base_dir   = self.config['paths']['base_data_directory']
         self.output_dir = self.config['paths']['output_directory']
         os.makedirs(self.output_dir, exist_ok=True)
 
         # Define features schema
-        self.features = Features({
+        self.features   = Features({
             "audio": Audio(sampling_rate=16000),
-            "text": Value("string"),
+            "text" : Value("string"),
             "translation": Value("string"),
             "speaker_name": Value("string"),
             "utterance_pitch_mean": Value("float32"),
@@ -46,11 +46,10 @@ class ParquetFileCreator:
     def process_data(self, data_file, data_type="train"):
         """Process CSV data and create corresponding Parquet files."""
         print(f"\nProcessing {data_type} data...")
-        data_df = pd.read_csv(os.path.join(self.base_dir, f"{data_type}/{data_type}.csv"))
         data_list = []
-
+        data_df   = pd.read_csv(os.path.join(self.base_dir, f"{data_type}/{data_type}.csv"))
         for idx, row in data_df.iterrows():
-            audio_path = os.path.join(self.base_dir, data_type, row["path"])
+            audio_path    = os.path.join(self.base_dir, data_type, row["path"])
             if os.path.exists(audio_path):
                 # Read audio file
                 audio, sr = sf.read(audio_path)
@@ -91,7 +90,7 @@ class ParquetFileCreator:
     def create_parquet_files(self):
         """Main method to create both train and test parquet files."""
         self.process_data("train", data_type="train")
-        self.process_data("test", data_type="test")
+        self.process_data("test",  data_type="test")
         print("\nAll parquet files created successfully!")
 
 

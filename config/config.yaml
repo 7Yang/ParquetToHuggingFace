@@ -1,9 +1,9 @@
 paths:
-  base_data_directory: "./ParquetToHuggingFace/data/raw data"
-  output_directory: "./ParquetToHuggingFace/data/processed_data"
+  base_data_directory: "E:/dataset_test/ParquetToHuggingFace/data/raw_data"
+  output_directory   : "E:/dataset_test/ParquetToHuggingFace/data/processed_data"
 
 huggingface:
-  repo_id: "username/repo_id"
-  token_env_var: "HUGGINGFACE_TOKEN"
+  repo_id            : "pr0mila-gh0sh/MediBeng"
+  token_env_var      : "HUGGINGFACE_TOKEN"
 
 
